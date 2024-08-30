@@ -5,14 +5,23 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "react-redux";
 import { store } from "./store";
+import Navbar from "./components/Navbar";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false
+    },
+  },
+});
 
 function App() {
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
+        <Navbar />
           <Routes>
             <Route path="/" element={<Products />} />
             <Route path="/product/:id" element={<ProductDetail />} />
@@ -25,3 +34,10 @@ function App() {
 
 export default App;
 
+// mobile optimization
+// data persist
+// product detail page
+// Bug: Add to cart button opening product details page in mobile view
+// Loading and Error component
+//
+// deployment

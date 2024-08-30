@@ -20,8 +20,6 @@ export default function Navbar() {
     mapData[product.id].push(product);
   }
 
-  if (!products || products.length === 0) return null;
-
   return (
     <>
       <div className="sticky top-2 w-full flex justify-end">

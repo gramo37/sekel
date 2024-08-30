@@ -3,12 +3,12 @@ import { FaStar } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa";
 import { FaRegStarHalfStroke } from "react-icons/fa6";
 
-export default function Ratings({ ratings }: { ratings: number }) {
+export default function Ratings({ ratings, className }: { ratings: number; className?: string }) {
   const totalStars = 5;
   const showHalfStar = Math.ceil(ratings) !== ratings;
 
   return (
-    <div className="flex gap-1 justify-center items-center">
+    <div className={`flex gap-1 justify-center items-center ${className}`}>
       {[...new Array(totalStars)].map((_, index) => {
         return (
           <React.Fragment key={index}>
