@@ -11,7 +11,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
-      retry: false
+      retry: false,
     },
   },
 });
@@ -21,7 +21,7 @@ function App() {
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-        <Navbar />
+          <Navbar />
           <Routes>
             <Route path="/" element={<Products />} />
             <Route path="/product/:id" element={<ProductDetail />} />

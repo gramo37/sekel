@@ -5,7 +5,7 @@ import { TProduct } from "../types";
 import { FaMinus } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import { addProduct, removeProduct } from "../store/reducers/cart.reducer";
-import Error from "./Error";
+import { getMapData } from "../utils";
 
 export default function Sidebar({
   sidebar,
@@ -17,16 +17,8 @@ export default function Sidebar({
   const products = useSelector(
     (state: RootState) => state.cartReducer.products
   );
-  const mapData: { [x: number]: TProduct[] } = {};
+  const mapData = getMapData(products);
   const dispatch: AppDispatch = useDispatch();
-
-  for (let i = 0; i < products.length; i++) {
-    const product = products[i];
-    if (!(product.id in mapData)) {
-      mapData[product.id] = [];
-    }
-    mapData[product.id].push(product);
-  }
 
   const add_product = (product: TProduct) => {
     dispatch(addProduct(product));
@@ -53,7 +45,7 @@ export default function Sidebar({
         <div>
           <h1 className="text-2xl text-center my-2 font-bold">Cart Items</h1>
         </div>
-        <div className="mt-5 h-[73vh] overflow-auto">
+        <div className="mt-5 max-h-[73vh] overflow-auto">
           {products.length > 0 ? (
             Object.keys(mapData).map((key) => {
               const product = mapData[Number(key)][0];
@@ -97,10 +89,12 @@ export default function Sidebar({
               );
             })
           ) : (
-            <Error message="No items in cart" type="info"/>
+            <div>
+              <h1 className="text-center text-xl">No Items in Cart</h1>
+            </div>
           )}
         </div>
-        <div className="bg-white p-2 mt-2 flex justify-between items-center">
+        {products.length > 0 && <div className="bg-white p-2 mt-2 flex justify-between items-center">
           <p className="text-xl font-bold">Total</p>
           <p>
             ₹{" "}
@@ -110,7 +104,7 @@ export default function Sidebar({
               }, 0)
               .toFixed(2)}
           </p>
-        </div>
+        </div>}
       </div>
     </>
   );

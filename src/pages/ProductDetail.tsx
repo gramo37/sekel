@@ -1,9 +1,8 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { PRODUCTS } from "../constants";
-import { TProduct } from "../types";
 import Error from "../components/Error";
-import { fetchProducts } from "../utils/api.helper";
+import { fetchProductById } from "../utils/api.helper";
 import Loading from "../components/Loading";
 import Ratings from "../components/Ratings";
 import { AppDispatch, RootState } from "../store";
@@ -12,32 +11,32 @@ import { addProduct } from "../store/reducers/cart.reducer";
 
 export default function ProductDetail() {
   const { id } = useParams();
-  const queryClient = useQueryClient();
   const dispatch: AppDispatch = useDispatch();
-  let products = queryClient.getQueryData([PRODUCTS]) as TProduct[];
-  const cart = useSelector((state: RootState) => state.cartReducer.products);
   const navigate = useNavigate();
-
-  const quantity = cart?.reduce((acc, curr) => {
+  const cart = useSelector((state: RootState) => state.cartReducer.products);
+  const quantity = cart.reduce((acc, curr) => {
     if (curr.id === Number(id)) acc += 1;
     return acc;
   }, 0);
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: [PRODUCTS],
-    queryFn: fetchProducts,
-    enabled: !products,
+  const {
+    data: product,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: [PRODUCTS, id],
+    queryFn: () => fetchProductById(Number(id)),
+    enabled: Boolean(id),
   });
 
-  if (!products && data) products = data;
+  const addToCart = () => {
+    if (product) dispatch(addProduct(product));
+  };
 
   if (isLoading) return <Loading />;
-  const product = products?.find((prod) => prod.id === Number(id));
   if (error || !product) return <Error message="Something went wrong" />;
+
   const { image, title, description, price, category, rating } = product;
-  const addToCart = () => {
-    dispatch(addProduct(product));
-  };
 
   return (
     <div className="flex justify-around items-center lg:items-start mt-5 flex-col lg:flex-row">
