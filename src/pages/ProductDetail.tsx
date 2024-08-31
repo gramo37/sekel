@@ -46,7 +46,7 @@ export default function ProductDetail() {
       <div className="lg:w-[45vw] mx-3 p-3">
         <div>
           <h3 className="text-6xl font-bold">{title}</h3>
-          <p className="text-4xl text-gray-600">{category}</p>
+          <p className="text-3xl text-gray-600 mt-2">{category}</p>
         </div>
         <div className="flex justify-start items-center gap-2 mt-5 mb-2">
           <p>
