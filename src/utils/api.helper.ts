@@ -12,3 +12,8 @@ export const fetchProducts = async (): Promise<TProduct[]> => {
   const res = await api.get("/products")
   return res.data;
 }
+
+export const fetchProductById = async (id: number): Promise<TProduct> => {
+  const res = await api.get(`/products/${id}`)
+  return res.data;
+}
