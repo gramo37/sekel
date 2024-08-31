@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { PRODUCTS } from "../constants";
 import { TProduct } from "../types";
 import Error from "../components/Error";
@@ -15,6 +15,13 @@ export default function ProductDetail() {
   const queryClient = useQueryClient();
   const dispatch: AppDispatch = useDispatch();
   let products = queryClient.getQueryData([PRODUCTS]) as TProduct[];
+  const cart = useSelector((state: RootState) => state.cartReducer.products);
+  const navigate = useNavigate();
+
+  const quantity = cart?.reduce((acc, curr) => {
+    if (curr.id === Number(id)) acc += 1;
+    return acc;
+  }, 0);
 
   const { data, isLoading, error } = useQuery({
     queryKey: [PRODUCTS],
@@ -23,15 +30,10 @@ export default function ProductDetail() {
   });
 
   if (!products && data) products = data;
-  const cart = useSelector((state: RootState) => state.cartReducer.products);
-  const quantity = cart?.reduce((acc, curr) => {
-    if (curr.id === Number(id)) acc += 1;
-    return acc;
-  }, 0);
 
   if (isLoading) return <Loading />;
   const product = products?.find((prod) => prod.id === Number(id));
-  if (error || !product) return <Error />;
+  if (error || !product) return <Error message="Something went wrong" />;
   const { image, title, description, price, category, rating } = product;
   const addToCart = () => {
     dispatch(addProduct(product));
@@ -75,6 +77,14 @@ export default function ProductDetail() {
               onClick={addToCart}
             >
               Add To Cart
+            </button>
+            <button
+              className="mt-5 transition-all bg-white border border-black text-black w-full px-2 py-4 hover:bg-black hover:text-white hover:border-none"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Continue Shopping
             </button>
           </div>
         </div>

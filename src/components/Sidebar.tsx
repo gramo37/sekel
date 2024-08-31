@@ -5,7 +5,7 @@ import { TProduct } from "../types";
 import { FaMinus } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import { addProduct, removeProduct } from "../store/reducers/cart.reducer";
-import NoItemsInCart from "./NoItemsInCart";
+import Error from "./Error";
 
 export default function Sidebar({
   sidebar,
@@ -97,7 +97,7 @@ export default function Sidebar({
               );
             })
           ) : (
-            <NoItemsInCart />
+            <Error message="No items in cart" type="info"/>
           )}
         </div>
         <div className="bg-white p-2 mt-2 flex justify-between items-center">

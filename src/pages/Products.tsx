@@ -13,7 +13,7 @@ export default function Products() {
   });
 
   if (isLoading) return <Loading />;
-  if (!data) return <Error />;
+  if (!data) return <Error message="Something went wrong" />;
   return (
     <>
       <div className="flex justify-center lg:justify-start items-center flex-wrap">
