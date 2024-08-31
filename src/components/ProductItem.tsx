@@ -41,11 +41,11 @@ export default function ProductItem(props: TProduct) {
         <div className="mx-1 my-2" onClick={goToDetail}>
           <h5 className="text-left font-bold text-lg">
             {title.substring(0, word_limit) +
-              (title.length > word_limit && "...")}
+              (title.length > word_limit ? "..." : "")}
           </h5>
           <h5 className="text-left text-md">
             {description.substring(0, word_limit * 5) +
-              (description.length > word_limit * 5 && "...")}
+              (description.length > word_limit * 5 ? "..." : "")}
           </h5>
         </div>
         <div
