@@ -41,7 +41,7 @@ export default function Sidebar({
   return (
     <>
       <div
-        className={`w-screen md:w-[80vw] fixed top-0 right-0 h-screen bg-gray-100 bg-opacity-95 transition-all p-4 ${
+        className={`w-screen md:w-[80vw] lg:w-[800px] fixed top-0 right-0 h-screen bg-gray-100 bg-opacity-95 transition-all p-4 ${
           sidebar ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -53,7 +53,7 @@ export default function Sidebar({
         <div>
           <h1 className="text-2xl text-center my-2 font-bold">Cart Items</h1>
         </div>
-        <div className="mt-5 h-[670px] overflow-auto">
+        <div className="mt-5 h-[73vh] overflow-auto">
           {products.length > 0 ? (
             Object.keys(mapData).map((key) => {
               const product = mapData[Number(key)][0];

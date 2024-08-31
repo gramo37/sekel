@@ -22,7 +22,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="sticky top-2 w-full flex justify-end">
+      <div className={`sticky top-2 w-full flex justify-end ${products.length === 0 && "opacity-0"}`}>
         <div className="cursor-pointer z-50 bg-white flex items-center justify-around mx-10 mt-3 rounded-full p-4 w-fit">
           <div className="relative" onClick={() => setSidebar((prev) => !prev)}>
             <FaShoppingCart className="w-7 h-7 text-gray-500" />

@@ -33,11 +33,3 @@ function App() {
 }
 
 export default App;
-
-// mobile optimization
-// data persist
-// product detail page
-// Bug: Add to cart button opening product details page in mobile view
-// Loading and Error component
-//
-// deployment

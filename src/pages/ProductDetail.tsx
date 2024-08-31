@@ -6,8 +6,8 @@ import Error from "../components/Error";
 import { fetchProducts } from "../utils/api.helper";
 import Loading from "../components/Loading";
 import Ratings from "../components/Ratings";
-import { AppDispatch } from "../store";
-import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../store";
+import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../store/reducers/cart.reducer";
 
 export default function ProductDetail() {
@@ -23,7 +23,8 @@ export default function ProductDetail() {
   });
 
   if (!products && data) products = data;
-  const quantity = products.reduce((acc, curr) => {
+  const cart = useSelector((state: RootState) => state.cartReducer.products);
+  const quantity = cart?.reduce((acc, curr) => {
     if (curr.id === Number(id)) acc += 1;
     return acc;
   }, 0);
@@ -37,9 +38,9 @@ export default function ProductDetail() {
   };
 
   return (
-    <div className="flex justify-center items-center lg:items-start mt-5 flex-col lg:flex-row">
-      <div className="w-[45vw] m-2 mr-5">
-        <img className="object-cover" src={image} alt={title} />
+    <div className="flex justify-around items-center lg:items-start mt-5 flex-col lg:flex-row">
+      <div className="w-[30vw] m-2 mr-5">
+        <img src={image} alt={title} />
       </div>
       <div className="lg:w-[45vw] mx-3 p-3">
         <div>
@@ -59,9 +60,15 @@ export default function ProductDetail() {
           <div>
             <div className="flex justify-between items-center">
               <p className="text-2xl my-3">Price: ₹ {price}</p>
-              <p className={`text-xl my-3 font-bold text-gray-800 ${quantity > 0 ? "opacity-1" : "opacity-0"}`}>
-                {quantity} Selected
-              </p>
+              {quantity > 0 && (
+                <p
+                  className={`text-xl my-3 font-bold text-gray-800 ${
+                    quantity > 0 ? "opacity-1" : "opacity-0"
+                  }`}
+                >
+                  {quantity} Selected
+                </p>
+              )}
             </div>
             <button
               className="transition-all bg-black text-white w-full px-2 py-4 hover:bg-white hover:text-black hover:border hover:border-black"

@@ -14,13 +14,11 @@ const slice = createSlice({
   initialState,
   reducers: {
     addProduct: (state, action: PayloadAction<TProduct>) => {
-      console.log(state.products, action.payload);
       state.products = [...state.products, action.payload];
     },
     removeProduct: (state, action: PayloadAction<number>) => {
       const index = state.products.findIndex((p) => p.id === action.payload);
       state.products.splice(index, 1);
-      // state.products = state.products.filter((p) => p.id !== action.payload);
     },
   },
 });
