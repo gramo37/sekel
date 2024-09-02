@@ -40,13 +40,13 @@ export default function ProductDetail() {
 
   return (
     <div className="flex justify-around items-center lg:items-start mt-5 flex-col lg:flex-row">
-      <div className="w-[30vw] m-2 mr-5">
+      <div className="w-[50vw] md:w-[30vw] m-2 mr-5">
         <img src={image} alt={title} />
       </div>
       <div className="lg:w-[45vw] mx-3 p-3">
         <div>
-          <h3 className="text-6xl font-bold">{title}</h3>
-          <p className="text-3xl text-gray-600 mt-2">{category}</p>
+          <h3 className="text-5xl md:text-6xl font-bold">{title}</h3>
+          <p className="text-2xl md:text-3xl text-gray-600 mt-2">{category}</p>
         </div>
         <div className="flex justify-start items-center gap-2 mt-5 mb-2">
           <p>
@@ -55,15 +55,15 @@ export default function ProductDetail() {
           <p>{rating.count}</p>
         </div>
         <div>
-          <p className="text-2xl">{description}</p>
+          <p className="text-xl md:text-2xl">{description}</p>
         </div>
         <div>
           <div>
             <div className="flex justify-between items-center">
-              <p className="text-2xl my-3">Price: ₹ {price}</p>
+              <p className="text-xl md:text-2xl my-3">Price: ₹ {price}</p>
               {quantity > 0 && (
                 <p
-                  className={`text-xl my-3 font-bold text-gray-800 ${
+                  className={`text-lg md:text-xl my-3 font-bold text-gray-800 ${
                     quantity > 0 ? "opacity-1" : "opacity-0"
                   }`}
                 >
